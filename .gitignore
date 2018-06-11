@@ -1,2 +1,6 @@
 *.pyc
 *.swap
+__pycache__
+/jupyter-annodoc
+/venv
+.ipynb_checkpoints

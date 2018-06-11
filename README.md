@@ -24,7 +24,4 @@ TensorFlow 1.0+
 1. Put OntoNotes 5.0 into `data/ontonotes-release-5.0`
 2. Make sure you convert bracket files into dependency files (e.g. from 
 `mnb_0001.parse` you would create `mnb_0001.dep`)
-3. Run `python3 -m  hyperspace.prepare`
-3. Run `python3 -m  hyperspace.adhoc_gen_data`
-3. Run `python3 -m  hyperspace.exp_van_de_cruys_2014`
-3. Run `python3 -m  hyperspace.exp_hyperspace`
+3. 
