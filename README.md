@@ -24,4 +24,5 @@ TensorFlow 1.0+
 1. Put OntoNotes 5.0 into `data/ontonotes-release-5.0`
 2. Make sure you convert bracket files into dependency files (e.g. from 
 `mnb_0001.parse` you would create `mnb_0001.dep`)
-3. 
+3. `git checkout d63ddf1` and run the notebook `notebook/extracting-triples.ipynb`
+4. 
