@@ -4,3 +4,5 @@ __pycache__
 /jupyter-annodoc
 /venv
 .ipynb_checkpoints
+notebook/*.html
+/.drake

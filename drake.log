@@ -1,0 +1,55 @@
+2019-01-06 05:47:32,287 INFO Nothing to do.
+2019-01-06 05:48:00,960 INFO Running 1 steps with concurrence of 1...
+2019-01-06 05:48:00,995 INFO 
+2019-01-06 05:48:00,996 INFO --- 0. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0
+2019-01-06 05:48:02,713 INFO --- 0: /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0 -> done in 1.71s
+2019-01-06 05:48:02,717 INFO Done (1 steps run).
+2019-01-06 05:49:51,895 INFO Running 1 steps with concurrence of 1...
+2019-01-06 05:49:51,925 INFO 
+2019-01-06 05:49:51,925 INFO --- 0. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0
+2019-01-06 05:49:58,136 INFO Done (0 steps run).
+2019-01-06 05:49:58,140 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/extracting-triples.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-13de29d7c88d7b6fb0328e91ebc517f8.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@5c3db0b6> #<BufferedWriter java.io.BufferedWriter@2770d415>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@34c69d02> #<BufferedWriter java.io.BufferedWriter@28031ec8>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-06 05:50:21,505 INFO Running 1 steps with concurrence of 1...
+2019-01-06 05:50:21,540 INFO 
+2019-01-06 05:50:21,540 INFO --- 0. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0
+2019-01-06 05:51:02,427 INFO Done (0 steps run).
+2019-01-06 05:51:02,430 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/extracting-triples.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-13de29d7c88d7b6fb0328e91ebc517f8.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@55b2811b> #<BufferedWriter java.io.BufferedWriter@ff3b56b>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@91cb4f8> #<BufferedWriter java.io.BufferedWriter@1eca4839>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-06 05:52:15,833 INFO Running 1 steps with concurrence of 1...
+2019-01-06 05:52:15,864 INFO 
+2019-01-06 05:52:15,865 INFO --- 0. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0
+2019-01-06 05:53:04,893 INFO --- 0: /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0 -> done in 49.02s
+2019-01-06 05:53:04,897 INFO Done (1 steps run).

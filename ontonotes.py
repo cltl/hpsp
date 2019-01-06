@@ -18,22 +18,14 @@ ontonotes_root = 'data/ontonotes-release-5.0'
 ontonotes_en = os.path.join(ontonotes_root, 'data/files/data/english/annotations')
 assert os.path.exists(ontonotes_root), 'please link/put ontonotes into data directory'
 
-dev_docs = set([
-    'bc/p2.5_a2e/00/p2.5_a2e_0022','bc/p2.5_a2e/00/p2.5_a2e_0009','bc/p2.5_c2e/00/p2.5_c2e_0008','bc/p2.5_a2e/00/p2.5_a2e_0029','bc/p2.5_c2e/00/p2.5_c2e_0041',
-    'bn/voa/00/voa_0016','bn/cnn/01/cnn_0173','bn/cnn/02/cnn_0272','bn/voa/00/voa_0043','bn/voa/01/voa_0144',
-    'mz/sinorama/10/ectb_1037', 'mz/sinorama/10/ectb_1071', 'mz/sinorama/10/ectb_1051', 'mz/sinorama/10/ectb_1061', 'mz/sinorama/10/ectb_1057',
-    'nw/wsj/11/wsj_1129', 'nw/wsj/05/wsj_0519', 'nw/wsj/15/wsj_1535', 'nw/wsj/10/wsj_1045', 'nw/wsj/07/wsj_0726',
-    'pt/nt/40/nt_4012', 'pt/nt/53/nt_5303', 'pt/ot/10/ot_1022', 'pt/ot/11/ot_1110', 'pt/nt/58/nt_5806',
-    'tc/ch/00/ch_0026', 'tc/ch/00/ch_0021', 'tc/ch/00/ch_0027', 'tc/ch/00/ch_0002', 'tc/ch/00/ch_0022',
-    'wb/sel/72/sel_7260', 'wb/sel/78/sel_7818', 'wb/sel/09/sel_0942', 'wb/sel/52/sel_5296', 'wb/sel/58/sel_5861'
-    ])
-
-
-    
 def load_coref(content, dep_content=None):
     chains = defaultdict(list)
     sent = 0
+    part_no = ''
     for line in content.split('\n'):
+        m_part_no = re.match(r'<TEXT\s+PARTNO="(\d+)">', line)
+        if m_part_no:
+            part_no = m_part_no.group(1)
         if line.strip() and not re.match(r'</?DOC|</?TEXT', line):
             tokens = []
             brackets = []
@@ -45,7 +37,7 @@ def load_coref(content, dep_content=None):
                     brackets.append((m.group(1), curr_index))
                 elif re.match(r'</COREF', s):
                     refid, start_index = brackets.pop()
-                    chains[refid].append((sent, start_index, curr_index))
+                    chains['p%s_%s' %(part_no, refid)].append((sent, start_index, curr_index))
                 else:
                     s = (s.replace('-AMP-', '&').replace('-LAB-', '<')
                          .replace('-RAB-', '>').replace(r'\*', '*')
@@ -65,12 +57,47 @@ def load_coref(content, dep_content=None):
             sent += 1
     return chains
 
+def load_named_entities(path, dep_content):
+    names = defaultdict(list)
+    sent = 0
+    if not os.path.exists(path):
+        print('Name data not found: %s' %path, file=sys.stderr)
+    else:
+        with codecs.open(path, 'r', 'utf-8') as f:
+            for line in f:
+                if line.strip() and not re.match(r'</?DOC|</?TEXT', line):
+                    tokens = []
+                    brackets = []
+                    curr_index = 0
+                    parts = re.findall(r'<ENAMEX\s[^>]+>|</ENAMEX\s*>|[^\s<>]+', line)
+                    for s in parts:
+                        m = re.match(r'<ENAMEX\s+TYPE="([^"]+)"', s)
+                        if m:
+                            brackets.append((m.group(1), curr_index))
+                        elif re.match(r'</ENAMEX', s):
+                            type_, start_index = brackets.pop()
+                            for i in range(start_index, curr_index):
+                                names[(sent, i)].append(type_)
+                        else:
+                            if curr_index >= len(dep_content[sent] or dep_content[sent][curr_index]['token'] != s):
+                                if not re.match(r'^(\*([A-Z\?]+\*)?(-\d+)?|0)$', s):
+                                    print(sent, dep_content[sent][curr_index]['token'], s)
+                                    raise ValueError("content in .name file and .coref file don't match")
+                                # else ignore
+                            else:
+                                tokens.append(s)
+                                curr_index += 1
+                    assert dep_content is None or len(tokens) == len(dep_content[sent])
+                    sent += 1
+    return names
+
 class OntonotesDocument:
     
     def __init__(self, base_path):
         self.base_path = base_path
         self._trees = None
         self._deps = None
+        self._named_entities = None
         self._frames = None
         self._chains = None
         self._coref = None
@@ -146,6 +173,11 @@ class OntonotesDocument:
         if self._deps is None:
             self._deps = conll.load_trees(self.base_path + '.dep')
         return self._deps
+
+    def named_entities(self):
+        if self._named_entities is None:
+            self._named_entities = load_named_entities(self.base_path + '.name', self.deps())
+        return self._named_entities
 
     def coref(self):
         if self._coref is None:
@@ -296,119 +328,3 @@ def list_docs(dir_path=ontonotes_en, shuffle=False, filter_func=None):
         paths = filter(filter_func, paths)
     return paths
 
-def ontonotes2tiger(onto_doc):
-    corpus = etree.Element("corpus")
-    etree.SubElement(corpus, 'head')
-    body = etree.SubElement(corpus, 'body')
-    sent2sem = {}
-    for tree_id, tree in enumerate(onto_doc.trees()):
-        dep = onto_doc.deps()[tree_id]
-        s_id = 's%d' %tree_id
-        s = etree.SubElement(body, 's', id=s_id)
-        # syntax trees
-        graph = etree.SubElement(s, 'graph')
-        terminals = etree.SubElement(graph, 'terminals')
-        tree_terminals = [t for t in tree.terminals if t.token_id is not None]
-        for i, tree_term in enumerate(tree_terminals):
-            word = word=dep[i]['token']
-            pos = tree_term.label()
-            lemma = lemmatizer.lemmatize(word, get_wordnet_pos(pos) or 'n')
-            t_id = '%s_%d' %(s_id, i)
-            tree_term.nt_id = t_id
-            etree.SubElement(terminals, 't', id=t_id, word=word, pos=pos, lemma=lemma)
-        nonterminals = etree.SubElement(graph, 'nonterminals')
-        
-        def traverse_tree(i, st):
-            if isinstance(st, str): return i
-            for child in st:
-                i = traverse_tree(i, child)
-            token_ids = set(t.token_id for t in st.terminals 
-                            if t.token_id is not None)
-            if st.height() > 2 and token_ids:
-                nt_id = '%s_%d' %(s_id, 500+i)
-                nt = etree.SubElement(nonterminals, 'nt', id=nt_id, cat=st.label())
-                head_id = find_syntactic_head(token_ids, dep)
-                if head_id is None:
-                    nt.attrib['head'] = '--'
-                else:
-                    nt.attrib['head'] = dep[head_id]['token']
-                for child in st:
-                    if hasattr(child, 'nt_id'):
-                        etree.SubElement(nt, 'edge', idref=child.nt_id, label='-')
-                    else:
-                        pass
-                st.nt_id = nt_id
-                i += 1
-            return i
-        traverse_tree(0, tree)
-                
-        graph.attrib['root'] = tree.nt_id
-        sem = etree.SubElement(s, 'sem')
-        sent2sem[tree_id] = sem
-        etree.SubElement(sem, 'globals')
-    # semantic roles
-    frame_elems = {}
-    for onto_frame_id, onto_frame in enumerate(onto_doc.frames):
-        assert onto_frame.sent >= 0 and onto_frame.offset >= 0
-        tree = onto_doc.trees()[onto_frame.sent]
-        sem = sent2sem[onto_frame.sent]
-        frame_id = 's%d_f%d' %(onto_frame.sent, onto_frame_id)
-        frame = etree.SubElement(sem, 'frame', name=onto_frame.predicate, id=frame_id)
-        frame_elems[(onto_frame.sent, onto_frame.offset)] = frame
-        target = etree.SubElement(frame, 'target')
-        etree.SubElement(target, 'fenode', idref='s%d_%d' %(onto_frame.sent, onto_frame.offset))
-        for onto_fe_id, onto_fe in enumerate(onto_frame.frame_elements):
-            fe_id = '%s_e%d' %(frame_id, onto_fe_id)
-            fe = etree.SubElement(frame, 'fe', id=fe_id, name=onto_fe.role)
-            if onto_fe.filler_tokens:
-                fe_nt = ptb.find_constituent(onto_fe.filler_tokens[0], tree)
-                etree.SubElement(fe, 'fenode', idref=fe_nt.nt_id)
-    # coreference
-    coref_count = 0
-    onto_doc.coref()
-    for chain in onto_doc._chains_as_spans.values():
-        coref_sent, coref_start, coref_end = chain[0]
-        coref_nt = ptb.find_constituent(list(range(coref_start, coref_end)), 
-                                        onto_doc.trees()[coref_sent])
-        for onto_current in chain[1:]:
-            curr_sent, curr_start, curr_end = onto_current
-            curr_nt = ptb.find_constituent(list(range(curr_start, curr_end)), 
-                                           onto_doc.trees()[curr_sent])
-            if hasattr(curr_nt, 'nt_id') and hasattr(coref_nt, 'nt_id'):
-                sem = sent2sem[curr_sent]
-                
-                frame_id = 's%d_c%d' %(curr_sent, coref_count)
-                frame = etree.SubElement(sem, 'frame', name="Coreference", id=frame_id)
-                target = etree.SubElement(frame, 'target')
-                etree.SubElement(target, 'fenode', idref=curr_nt.nt_id)
-                
-                fe1 = etree.SubElement(frame, 'fe', name="Coreferent")
-                etree.SubElement(fe1, 'fenode', idref=coref_nt.nt_id)
-                
-                fe2 = etree.SubElement(frame, 'fe', name="Current")
-                etree.SubElement(fe2, 'fenode', idref=curr_nt.nt_id)
-                coref_count += 1
-    return corpus, frame_elems
-
-
-if __name__ == '__main__':
-    table = [['Predicate', 'Frame', 'Role', 'Filler', 'Filler_corefs']]
-    for onto_doc in iter_docs(shuffle=True):
-        xml_doc, _ = ontonotes2tiger(onto_doc)
-        doc = Document(xml_doc)
-        for frame_elem in doc.frames:
-            if 'bring' in frame_elem.get('name'):
-                for fe_elem in frame_elem.iterfind('fe'):
-                    if fe_elem.find('fenode') is not None:
-                        filler_id = fe_elem.find('fenode').get('idref')
-                        filler_corefs = doc.coref.get(filler_id, [])
-                        table.append([' '.join(doc.id2words[frame_elem.find('target/fenode').get('idref')]),
-                                      frame_elem.get('name'),
-                                      fe_elem.get('name'),
-                                      ' '.join(doc.id2words[filler_id]),
-                                      '='.join(' '.join(doc.id2words[fcoref]) 
-                                                        for fcoref in filler_corefs)])
-        if len(table) >= 1001:
-            break;
-    w = csv.writer(sys.stdout)
-    w.writerows(table)    

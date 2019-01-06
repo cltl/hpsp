@@ -19,10 +19,12 @@ but I'll need to check again.
 
 TensorFlow 1.0+
 
+## Data
+
+- Download OntoNotes
+- Use [this script](https://bitbucket.org/cltl/isrl-sp/src/756fadf8d1d25d6a4271f0cc4caa94af0ab095da/constituency2dependency.py?at=master&fileviewer=file-view-default) to create dependency trees
+
 ## Replication notes
 
-1. Put OntoNotes 5.0 into `data/ontonotes-release-5.0`
-2. Make sure you convert bracket files into dependency files (e.g. from 
-`mnb_0001.parse` you would create `mnb_0001.dep`)
 3. `git checkout d63ddf1` and run the notebook `notebook/extracting-triples.ipynb`
 4. 

@@ -1,0 +1,2 @@
+output/ontonote-svo.txt <- data/ontonotes-release-5.0 [-timecheck]
+    jupyter nbconvert --ExecutePreprocessor.timeout=3600 --execute notebook/extracting-triples.ipynb
