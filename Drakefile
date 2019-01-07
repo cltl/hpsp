@@ -1,2 +1,8 @@
 output/ontonote-svo.txt <- data/ontonotes-release-5.0 [-timecheck]
     jupyter nbconvert --ExecutePreprocessor.timeout=3600 --execute notebook/extracting-triples.ipynb
+
+output/ontonote-svo-train.txt, output/ontonote-svo-test.txt, output/ontonote-svo-train.npy, output/ontonote-svo-test.npy, output/ontonote-encoder.pkl <- output/ontonote-svo.txt
+    jupyter nbconvert --execute notebook/dataset-generation.ipynb
+
+notebook/cruys2014.html <- output/ontonote-svo-train.npy, output/ontonote-svo-test.npy
+    jupyter nbconvert --ExecutePreprocessor.timeout=3600 --execute notebook/cruys2014.ipynb

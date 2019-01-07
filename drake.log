@@ -53,3 +53,101 @@
 2019-01-06 05:52:15,865 INFO --- 0. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0
 2019-01-06 05:53:04,893 INFO --- 0: /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././data/ontonotes-release-5.0 -> done in 49.02s
 2019-01-06 05:53:04,897 INFO Done (1 steps run).
+2019-01-06 12:29:47,239 INFO Running 1 steps with concurrence of 1...
+2019-01-06 12:29:47,285 INFO 
+2019-01-06 12:29:47,285 INFO --- 1. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt
+2019-01-06 12:29:53,705 INFO Done (0 steps run).
+2019-01-06 12:29:53,708 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/dataset-generation.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-b9a782960db4e8190d77256750d9a7a3.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@55b2811b> #<BufferedWriter java.io.BufferedWriter@ff3b56b>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@91cb4f8> #<BufferedWriter java.io.BufferedWriter@1eca4839>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-06 12:30:16,243 INFO Running 1 steps with concurrence of 1...
+2019-01-06 12:30:16,279 INFO 
+2019-01-06 12:30:16,279 INFO --- 1. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt
+2019-01-06 12:30:22,452 INFO Done (0 steps run).
+2019-01-06 12:30:22,456 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/dataset-generation.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-b9a782960db4e8190d77256750d9a7a3.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@51d53158> #<BufferedWriter java.io.BufferedWriter@47205233>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@52f4bc3d> #<BufferedWriter java.io.BufferedWriter@2143844c>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-06 12:30:36,082 INFO Running 1 steps with concurrence of 1...
+2019-01-06 12:30:36,108 INFO 
+2019-01-06 12:30:36,109 INFO --- 1. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt
+2019-01-06 12:30:42,013 INFO Done (0 steps run).
+2019-01-06 12:30:42,016 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/dataset-generation.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-b9a782960db4e8190d77256750d9a7a3.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@5da075c2> #<BufferedWriter java.io.BufferedWriter@27fa046e>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@557498a9> #<BufferedWriter java.io.BufferedWriter@3b5d42bf>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-06 12:30:47,896 INFO Running 1 steps with concurrence of 1...
+2019-01-06 12:30:47,925 INFO 
+2019-01-06 12:30:47,925 INFO --- 1. Running (missing output): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt
+2019-01-06 12:30:53,525 INFO --- 1: /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt -> done in 5.60s
+2019-01-06 12:30:53,528 INFO Done (1 steps run).
+2019-01-06 18:36:37,884 INFO Aborted.
+2019-01-06 19:29:58,714 INFO Aborted.
+2019-01-06 19:30:15,719 INFO Nothing to do.
+2019-01-06 23:40:36,282 INFO Nothing to do.
+2019-01-07 10:39:34,583 INFO Running 2 steps with concurrence of 1...
+2019-01-07 10:39:34,615 INFO 
+2019-01-07 10:39:34,619 INFO --- 1. Running (timestamped): /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.txt, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-train.npy, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo-test.npy, /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-encoder.pkl <- /Users/cumeo/Projects/spinoza/ulm-4/hpsp/././output/ontonote-svo.txt
+2019-01-07 10:39:40,039 INFO Done (0 steps run).
+2019-01-07 10:39:40,047 ERROR clojure.lang.ExceptionInfo: shell command failed with exit code 1 {:file "jupyter nbconvert --execute notebook/dataset-generation.ipynb\n", :msg "shell command failed with exit code 1", :cmd ("/bin/bash" "/Users/cumeo/Projects/spinoza/ulm-4/hpsp/./.drake/shell-b9a782960db4e8190d77256750d9a7a3.bat"), :opts {:die true, :no-stdin nil, :err [#<PrintStream java.io.PrintStream@61ec8618> #<BufferedWriter java.io.BufferedWriter@494ed907>], :exec-dir nil, :out [#<PrintStream java.io.PrintStream@11f39442> #<BufferedWriter java.io.BufferedWriter@700fbc00>]}, :exit-code 1}
+	at clojure.core$ex_info.invoke(core.clj:4403)
+	at drake.shell$shell.doInvoke(shell.clj:150)
+	at clojure.lang.RestFn.applyTo(RestFn.java:137)
+	at clojure.core$apply.invoke(core.clj:624)
+	at drake.protocol$run_interpreter.invoke(protocol.clj:86)
+	at drake.protocol_interpreters$register_interpreter_BANG_$reify__4753.run(protocol_interpreters.clj:14)
+	at drake.core$run_step.invoke(core.clj:367)
+	at drake.core$attempt_run_step.invoke(core.clj:479)
+	at drake.core$function_for_step$fn__5091.invoke(core.clj:502)
+	at drake.core$trigger_futures_helper$fn__5102.invoke(core.clj:540)
+	at clojure.core$binding_conveyor_fn$fn__4145.invoke(core.clj:1910)
+	at clojure.lang.AFn.call(AFn.java:18)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2019-01-07 10:41:38,814 INFO Aborted.

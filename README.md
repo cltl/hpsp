@@ -1,30 +1,26 @@
+Experiments with normal activation function (e^(-x^2)).
 
-Initial experiments: comparing hyperspace model and van de Cruys (2014).
+Constructed an evaluation set from OntoNotes: 10k pairs of good and bad s-v-o tuples.
+The corrupted tuples are created by selecting random subjects and (direct) objects
+in the same frequency band as the good one. The control for frequency makes it much 
+harder than previous datasets. TODO: validate this new dataset with human annotators.
 
-When evaluated on a randomly generated pseudo-disambiguation dataset
-(`output/dep_context_labeled.dev.txt`), the model
-of van de Cruys (2014) gets incredibly high result: 94.08%.
+The performance of van de Cruys (2014)'s model are quite low: around 56%.
+When adding normal activation function, it rose to about 58%.
 
-When controlled for frequency (`output/dep_context_labeled.dev-fixed.txt`),
-the same model gives only 51.81%, i.e. barely better than chance.
-
-This is a big problem: all results before and including van de Cruys (2014)
-need to be reconsidered. A better evaluation set needs to be constructed. 
-
-My model gives slightly higher accuracy (once 53.96% and another time 54.37%)
-but it also gives 0% for random seed 19. I guess it got NaN or inf in that case
-but I'll need to check again.
-
-## Dependencies
-
-TensorFlow 1.0+
+TODO: print out words that activate each neuron the most. Compare activation functions
+in terms of what property they capture. Also compare the number of words that activate
+a neuron.
 
 ## Data
 
-- Download OntoNotes
-- Use [this script](https://bitbucket.org/cltl/isrl-sp/src/756fadf8d1d25d6a4271f0cc4caa94af0ab095da/constituency2dependency.py?at=master&fileviewer=file-view-default) to create dependency trees
+1. Download OntoNotes
+2. Use [this script](https://bitbucket.org/cltl/isrl-sp/src/756fadf8d1d25d6a4271f0cc4caa94af0ab095da/constituency2dependency.py?at=master&fileviewer=file-view-default) to create dependency trees
 
-## Replication notes
+## Replication
 
-3. `git checkout d63ddf1` and run the notebook `notebook/extracting-triples.ipynb`
-4. 
+1. Install dependencies: see `requirements.txt`
+2. Install [drake](https://github.com/Factual/drake) 
+3. Run from the command line: `drake`
+4. Results are in `notebook/*.html`
+    - `cruys2014.html`: evaluating Cruys (2014) model
