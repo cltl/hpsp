@@ -5,17 +5,12 @@ The corrupted tuples are created by selecting random subjects and (direct) objec
 in the same frequency band as the good one. The control for frequency makes it much 
 harder than previous datasets. TODO: validate this new dataset with human annotators.
 
-The performance of van de Cruys (2014)'s model are quite low: around 56%.
-When adding normal activation function, it rose to about 58%.
-
 TODO: print out words that activate each neuron the most. Compare activation functions
 in terms of what property they capture. Also compare the number of words that activate
 a neuron.
 
 TODO: study the effect on word embeddings -- would we able to capture more
 similarity instead of relatedness?
-
-TODO: run `neural-dependency-parser` on PennTreeBank, change the activation function.
 
 ## Data
 
