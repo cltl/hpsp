@@ -1,8 +1,53 @@
+
+ONE_HOUR=3600
+TEN_HOURS=36000
+
+
+;==========================================================================
+; Preprocessing data
+;==========================================================================
+
+
 output/ontonote-svo.txt <- data/ontonotes-release-5.0 [-timecheck]
-    jupyter nbconvert --ExecutePreprocessor.timeout=3600 --execute notebook/extracting-triples.ipynb
+    jupyter nbconvert --ExecutePreprocessor.timeout=ONE_HOUR --execute notebook/extracting-triples.ipynb
 
-output/ontonote-svo-train.txt, output/ontonote-svo-test.txt, output/ontonote-svo-train.npy, output/ontonote-svo-test.npy, output/ontonote-encoder.pkl <- output/ontonote-svo.txt
-    jupyter nbconvert --execute notebook/dataset-generation.ipynb
 
-notebook/cruys2014.html <- output/ontonote-svo-train.npy, output/ontonote-svo-test.npy
-    jupyter nbconvert --ExecutePreprocessor.timeout=3600 --execute notebook/cruys2014.ipynb
+; output/ukwac-counts, output/ukwac-counts.SUCCESS <- data/ukwac-dep [-timecheck]
+;     rm -rf $OUTPUTS
+;     jupyter nbconvert --ExecutePreprocessor.timeout=$TEN_HOURS --execute notebook/counting-ukwac.ipynb && touch $OUTPUT1
+
+
+output/ukwac-triples, output/ukwac-triples.SUCCESS <- data/ukwac-dep [-timecheck]
+    rm -rf $OUTPUTS
+    jupyter nbconvert --ExecutePreprocessor.timeout=$TEN_HOURS --execute notebook/extracting-triples-ukwac.ipynb && touch $OUTPUT1
+
+
+output/ukwac-triples-filtered.tsv.gz <- output/ukwac-triples.SUCCESS
+    rm -rf $OUTPUTS
+    jupyter nbconvert --execute notebook/filtering-triples-ukwac.ipynb && touch $OUTPUT1
+
+
+notebook/exploring-triples-ukwac.html <- output/ukwac-triples-filtered.tsv.gz
+    jupyter nbconvert --execute notebook/exploring-triples-ukwac.ipynb
+
+
+;==========================================================================
+; Constructing train/dev/test sets
+;==========================================================================
+
+
+output/ukwac-dev-same-freq.npy, output/ukwac-dev-unigram-freq.npy, output/ukwac-encoder.pkl <- output/ukwac-triples-filtered.tsv.gz
+    jupyter nbconvert --execute notebook/generating-datasets-from-ukwac.ipynb
+
+
+output/ontonote-svo-same-freq.npy, output/ontonote-svo-unigram-freq.npy <- output/ontonote-svo.txt, output/ukwac-encoder.pkl
+    jupyter nbconvert --execute notebook/generating-test-set-from-ontonotes.ipynb
+
+
+;==========================================================================
+; Training models
+;==========================================================================
+
+
+output/cruys2014-ukwac.hd5 <- output/ukwac-train.npy, output/ukwac-dev.npy, output/ontonote-svo-same-freq.npy, output/ontonote-svo-unigram-freq.npy, output/ukwac-dev-same-freq.npy, output/ukwac-dev-unigram-freq.npy
+    jupyter nbconvert --ExecutePreprocessor.timeout=$TEN_HOURS --execute notebook/cruys2014.ipynb

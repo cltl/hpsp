@@ -12,10 +12,17 @@ TODO: print out words that activate each neuron the most. Compare activation fun
 in terms of what property they capture. Also compare the number of words that activate
 a neuron.
 
+TODO: study the effect on word embeddings -- would we able to capture more
+similarity instead of relatedness?
+
+TODO: run `neural-dependency-parser` on PennTreeBank, change the activation function.
+
 ## Data
 
 1. Download OntoNotes
 2. Use [this script](https://bitbucket.org/cltl/isrl-sp/src/756fadf8d1d25d6a4271f0cc4caa94af0ab095da/constituency2dependency.py?at=master&fileviewer=file-view-default) to create dependency trees
+3. Download dependency-parsed [ukWaC](http://wacky.sslmit.unibo.it/doku.php?id=corpora) 
+and put under `/data/ukwac-dep`
 
 ## Replication
 

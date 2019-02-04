@@ -1,20 +1,34 @@
 import re
 from collections import defaultdict
 
-def _parse_dep_tree(lines):
+def parse_dep_tree(lines, format):
+    format = format or "ontonotes"
+
     tree = []
     for line in lines:
-        fields = line.strip().split('\t')
-        tree.append({'token': fields[1], 
-                     'pos': fields[3],
-                     'head': int(fields[6])-1,
-                     'label': fields[7]})
+        fields = line.rstrip().split('\t')
+        if format == "ontonotes":
+            tree.append({'token': fields[1], 
+                         'pos': fields[3],
+                         'head': int(fields[6])-1,
+                         'label': fields[7]})
+        elif format == "ukwac":
+            tree.append({'token': fields[0], 
+                         'lemma': fields[1],
+                         'pos': fields[2],
+                         'head': int(fields[4])-1,
+                         'label': fields[5]})
+        else:
+            raise ValueError("Unsupported format: %s" %format)
+
+    # construct the list of tokens under each subtree
     n = len(tree)
     count = [0] * n
     for i in range(n):
         tree[i]['tokens'] = set()
         if tree[i]['head'] >= 0:
             count[tree[i]['head']] += 1
+    # make a queue of tokens and process them one by one, leaves -> root
     tokens_to_process = [i for i in range(n) if count[i] == 0]
     while len(tokens_to_process) > 0:
         i = tokens_to_process.pop()
@@ -34,12 +48,12 @@ def load_trees(path):
         lines = []
         for line in f:
             if re.match(r'\r?\n', line):
-                trees.append(_parse_dep_tree(lines))
+                trees.append(parse_dep_tree(lines))
                 lines = []
             else:
                 lines.append(line)
         if len(lines) > 0:
-            trees.append(_parse_dep_tree(lines))
+            trees.append(parse_dep_tree(lines))
     return trees
     
 def find_syntactic_head(token_ids, dep):
